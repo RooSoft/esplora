@@ -47,14 +47,14 @@ RUN source /root/.nvm/nvm.sh \
 # configuration
 RUN cp /srv/explorer/source/run.sh /srv/explorer/
 
-# run as UID 1000
-RUN groupadd -r esplora && useradd -u 1000 -r -g esplora esplora
-USER 1000
-
 # cleanup
 RUN apt-get --auto-remove remove -yqq --purge manpages \
  && apt-get clean \
  && apt-get autoclean \
  && rm -rf /usr/share/doc* /usr/share/man /usr/share/postgresql/*/man /var/lib/apt/lists/* /var/cache/* /tmp/* /root/.cache /*.deb /root/.cargo
+
+# run as UID 1000
+RUN groupadd -r esplora && useradd -u 1000 -r -g esplora esplora
+USER 1000
 
 WORKDIR /srv/explorer
